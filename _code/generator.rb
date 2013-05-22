@@ -25,9 +25,9 @@ def get_playlist_url(djpage)
   songs = get_songs_from_djpage(djpage)
   playlist_url = "https://embed.spotify.com/?uri=spotify:trackset:bFMonSpotify:"
 
-  while(playlist_url.length < 1900)
+  while(playlist_url.length < 1000 && songs.length > 0)
     s = songs.shift
-    sleep 0.5
+    sleep 0.1
     url = get_spotify_url_from_song(s)
     if url
       puts url.split(":").last
@@ -39,9 +39,6 @@ end
 
 url = "http://www.95bfm.com/default,204025,arcade-djs.sm"
 doc = Nokogiri::HTML(open(url))
-
-
-#puts songs
 
 djs = doc.at_css("div#djlist ul").children.map do |c|
   [c.children.first.text, c.children.first.attributes["href"].value] rescue nil
@@ -58,5 +55,6 @@ File.open("_includes/playlists.html", "w") do |f|
     rescue Exception => e
       puts "Error with DJ page #{d[0]} - #{d[1]}"
     end
+    f.flush # 
   end
 end
