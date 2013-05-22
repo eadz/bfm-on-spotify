@@ -51,7 +51,7 @@ File.open("_includes/playlists.html", "w") do |f|
     begin
       djpage = Nokogiri::HTML(open(url))
       playlist_url = get_playlist_url(djpage)
-      f.write("<li><a target=\"_blank\" href=\"#{playlist_url}\">#{d[0]}</a></li>")
+      f.write("<li><a target=\"_blank\" href=\"#{playlist_url}\">#{d[0]}</a></li>\n")
     rescue Exception => e
       puts "Error with DJ page #{d[0]} - #{d[1]}"
     end
