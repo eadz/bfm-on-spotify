@@ -103,7 +103,7 @@ File.open("_includes/playlists.html", "w") do |f|
 end
 
 File.open("_includes/playlists.html", "w") do |f|
-  @topsongs.sort_by{|k,v| v}.reverse[0..10].each do |k,v|
+  @topsongs.sort_by{|k,v| v}.reverse[0..15].each do |k,v|
     f.write <<-EOF
     <li><iframe src="https://embed.spotify.com/?uri=spotify:track:#{v}" width="300" height="80" frameborder="0" allowtransparency="true"></iframe></li>
     EOF
