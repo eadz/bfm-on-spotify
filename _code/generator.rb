@@ -15,6 +15,8 @@ ActiveRecord::Base.logger = Logger.new(STDOUT)
 #   t.timestamps
 # end
 
+@topsongs = {}
+
 class Song < ActiveRecord::Base
 end
 
@@ -70,6 +72,8 @@ def get_playlist_url(djpage)
     s = songs.shift
     url = get_spotify_url_from_song(s)
     if url
+      @topsongs[url] ||= 0
+      @topsongs[url] += 1
       playlist_url += url + ","
     end
   end
@@ -95,5 +99,13 @@ File.open("_includes/playlists.html", "w") do |f|
       puts "Error with DJ page #{d[0]} - #{d[1]} #{e.inspect}"
     end
     f.flush # 
+  end
+end
+
+File.open("_includes/playlists.html", "w") do |f|
+  @topsongs.sort_by{|k,v| v}.reverse[0..10].each do |k,v|
+    f.write <<-EOF
+    <li><iframe src="https://embed.spotify.com/?uri=spotify:track:#{v}" width="300" height="80" frameborder="0" allowtransparency="true"></iframe></li>
+    EOF
   end
 end
