@@ -109,3 +109,8 @@ File.open("_includes/toptracks.html", "w") do |f|
     EOF
   end
 end
+
+File.open("_includes/updated.html", "w") do |f|
+  f.write "Updated #{Time.now.to_s}"
+end
+
