@@ -2,8 +2,8 @@ require 'rubygems'
 require 'nokogiri'
 require 'open-uri'
 require 'json'
-require 'active_record'
 require 'sqlite3'
+require 'active_record'
 require 'logger'
 
 ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :database => "_code/songs.sqlite3")
@@ -37,7 +37,7 @@ def get_songs_from_djpage(djpage)
 end
 
 def get_spotify_url_from_song(song)
-  s = Song.where(:song_name => song)
+  s = ::Song.where(:song_name => song)
   if songrecord = s.first
     if songrecord.spotify_id == 'notfound'
       return nil
@@ -98,7 +98,7 @@ File.open("_includes/playlists.html", "w") do |f|
     rescue Exception => e
       puts "Error with DJ page #{d[0]} - #{d[1]} #{e.inspect}"
     end
-    f.flush # 
+    f.flush #
   end
 end
 

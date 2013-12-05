@@ -1,0 +1,5 @@
+source 'https://rubygems.org/'
+gem 'nokogiri'
+gem 'json'
+gem 'sqlite3'
+gem 'activerecord', '~> 3.2.12'
